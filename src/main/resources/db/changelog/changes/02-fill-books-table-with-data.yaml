@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: fill-books-table-by-data
-      author: onlinebookstore
+      author: Olexii
       changes:
         - insert:
             tableName: books
