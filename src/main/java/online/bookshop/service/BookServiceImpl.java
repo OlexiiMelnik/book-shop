@@ -11,6 +11,7 @@ import online.bookshop.mapper.BookMapper;
 import online.bookshop.model.Book;
 import online.bookshop.repository.BookRepository;
 import online.bookshop.specification.bookspec.BookSpecificationBuilder;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookResponseDto> findAll() {
-        return bookRepository.findAll()
+    public List<BookResponseDto> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable)
                 .stream()
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
@@ -63,9 +64,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookResponseDto> search(
-            BookSearchParametersDto params) {
+            BookSearchParametersDto params, Pageable pageable) {
         Specification<Book> bookSpecification = bookSpecificationBuilder.build(params);
-        return bookRepository.findAll(bookSpecification).stream()
+        return bookRepository.findAll(bookSpecification, pageable).stream()
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
     }
