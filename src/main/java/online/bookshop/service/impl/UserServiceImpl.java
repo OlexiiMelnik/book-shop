@@ -1,6 +1,5 @@
 package online.bookshop.service.impl;
 
-import java.util.HashSet;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import online.bookshop.dto.user.UserRegistrationRequestDto;
@@ -37,9 +36,7 @@ public class UserServiceImpl implements UserService {
         user.setShippingAddress(requestDto.getShippingAddress());
         Role userRole = roleRepository.findRoleByRoleName(Role.RoleName.USER)
                 .orElseThrow(() -> new RegistrationException("Can't find role by name"));
-        Set<Role> defaultUserRoleSet = new HashSet<>();
-        defaultUserRoleSet.add(userRole);
-        user.setRoles(defaultUserRoleSet);
+        user.setRoles(Set.of(userRole));
         User saveUser = userRepository.save(user);
         return userMapper.toDto(saveUser);
     }

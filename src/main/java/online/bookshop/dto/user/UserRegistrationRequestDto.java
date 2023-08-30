@@ -18,8 +18,6 @@ public class UserRegistrationRequestDto {
     @NotNull
     @Size(min = 7, max = 60)
     private String password;
-    @NotNull
-    @Size(min = 7, max = 60)
     private String repeatPassword;
     @NotNull
     private String firstName;
