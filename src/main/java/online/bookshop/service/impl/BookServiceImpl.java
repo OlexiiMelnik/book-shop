@@ -1,15 +1,16 @@
-package online.bookshop.service;
+package online.bookshop.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import online.bookshop.dto.BookResponseDto;
-import online.bookshop.dto.BookSearchParametersDto;
-import online.bookshop.dto.CreateBookRequestDto;
+import online.bookshop.dto.book.BookResponseDto;
+import online.bookshop.dto.book.BookSearchParametersDto;
+import online.bookshop.dto.book.CreateBookRequestDto;
 import online.bookshop.exeption.EntityNotFoundException;
 import online.bookshop.mapper.BookMapper;
 import online.bookshop.model.Book;
 import online.bookshop.repository.BookRepository;
+import online.bookshop.service.BookService;
 import online.bookshop.specification.bookspec.BookSpecificationBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
