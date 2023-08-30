@@ -1,4 +1,4 @@
-package online.bookshop.dto;
+package online.bookshop.dto.book;
 
 import java.math.BigDecimal;
 import lombok.Data;

@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: fill-users-table-by-data
+      author: Olexii
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: "email", value: "Alice111@gmail.com" }
+              - column: { name: "password", value: "$2a$12$zmLqQy8d2XyJMcY81P.oQ.b1vCsL8EJAiLvlODUICtQKBh7VJQ6U6" } # "111"}
+              - column: { name: "first_name", value: "Alice" }
+              - column: { name: "last_name", value: "Molly" }
+              - column: { name: "shipping_address", value: "Golosiivska, 10/1" }
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: "email", value: "Bob222@gmail.com" }
+              - column: { name: "password", value: "$2a$12$P/6fNMUiE9C8rPFymunCS.XUGxJMBcbbVxsxIDb8.vQp3e9fkueQC" } # "222"}
+              - column: { name: "first_name", value: "Bob" }
+              - column: { name: "last_name", value: "Depp" }
+              - column: { name: "shipping_address", value: "Pochaina, 41/20" }
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: "email", value: "Jhon333@gmail.com" }
+              - column: { name: "password", value: "$2a$12$cyV11p9/THIMjL7qiMMGMOZbmhXu9XBEQKoS/s7oIhu7/7qGBb6ZC" } # "333"}
+              - column: { name: "first_name", value: "Jhon" }
+              - column: { name: "last_name", value: "Tremor" }
+              - column: { name: "shipping_address", value: "Solomianska, 16/17" }
