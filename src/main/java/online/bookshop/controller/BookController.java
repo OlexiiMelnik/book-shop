@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import online.bookshop.dto.book.BookResponseDto;
+import online.bookshop.dto.book.BookDto;
 import online.bookshop.dto.book.BookSearchParametersDto;
 import online.bookshop.dto.book.CreateBookRequestDto;
 import online.bookshop.service.BookService;
@@ -34,7 +34,7 @@ public class BookController {
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public BookResponseDto create(@RequestBody @Valid CreateBookRequestDto requestDto) {
+    public BookDto create(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.save(requestDto);
     }
 
@@ -42,29 +42,29 @@ public class BookController {
             description = "Update the book by id into DB")
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public BookResponseDto update(@PathVariable Long id,
-                                  @RequestBody @Valid CreateBookRequestDto requestDto) {
+    public BookDto update(@PathVariable Long id,
+                          @RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.update(id, requestDto);
     }
 
     @Operation(summary = "Find all books",
             description = "Find all the books in the DB and display them using pagination")
     @GetMapping
-    public List<BookResponseDto> findAll(Pageable pageable) {
+    public List<BookDto> findAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
     @Operation(summary = "Find a book",
             description = "Find a book by id into DB")
     @GetMapping("/{id}")
-    public BookResponseDto findById(@PathVariable Long id) {
+    public BookDto findById(@PathVariable Long id) {
         return bookService.findById(id);
     }
 
     @Operation(summary = "Search book's by parameters",
             description = "Search book's by parameters")
     @GetMapping("/search")
-    public List<BookResponseDto> search(BookSearchParametersDto params, Pageable pageable) {
+    public List<BookDto> search(BookSearchParametersDto params, Pageable pageable) {
         return bookService.search(params, pageable);
     }
 
