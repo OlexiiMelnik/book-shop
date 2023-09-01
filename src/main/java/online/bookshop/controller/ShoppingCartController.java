@@ -30,9 +30,10 @@ public class ShoppingCartController {
 
     @Operation(summary = "Find a shoppingCart",
             description = "Find a shoppingCart by userId into DB")
-    @GetMapping("/{id}")
-    public ShoppingCartResponseDto getShoppingCartDtoByUserId(@PathVariable Long id) {
-        return shoppingCartService.getShoppingCartDtoByUserId(id);
+    @GetMapping()
+    public ShoppingCartResponseDto getShoppingCartDtoByUserId(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return shoppingCartService.getShoppingCartDtoByUserId(user.getId());
     }
 
     @Operation(summary = "Add book to the shopping cart",

@@ -1,5 +1,6 @@
 package online.bookshop.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import online.bookshop.dto.cartitem.CartItemRequestDto;
 import online.bookshop.dto.cartitem.CartItemUpdateDto;
@@ -32,6 +33,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    @Transactional
     public ShoppingCartResponseDto addCartItemByUserId(Long id,
                                                        CartItemRequestDto cartItemRequestDto) {
         CartItem cartItem =
@@ -43,18 +45,33 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    @Transactional
     public ShoppingCartResponseDto updateCartItem(
             Long id, Long cartItemId, CartItemUpdateDto cartItemUpdateDto) {
         CartItem cartItem = cartItemRepository.findById(cartItemId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find cartItemId by id: " + cartItemId));
+        ShoppingCart shoppingCartById = getShoppingCartById(id);
+        if (!shoppingCartById.getUser().getId().equals(
+                cartItem.getShoppingCart().getUser().getId())) {
+            throw new RuntimeException("You don't have permission to update this cart item");
+        }
         cartItem.setQuantity(cartItemUpdateDto.getQuantity());
         cartItemRepository.save(cartItem);
-        return shoppingCartMapper.toDto(getShoppingCartById(id));
+        return shoppingCartMapper.toDto(shoppingCartById);
     }
 
     @Override
+    @Transactional
     public ShoppingCartResponseDto deleteCartItem(Long id, Long cartItemId) {
+        CartItem cartItem = cartItemRepository.findById(cartItemId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Can't find cartItemId by id: " + cartItemId));
+        ShoppingCart shoppingCartById = getShoppingCartById(id);
+        if (!shoppingCartById.getUser().getId().equals(
+                cartItem.getShoppingCart().getUser().getId())) {
+            throw new RuntimeException("You don't have permission to delete this cart item");
+        }
         cartItemRepository.deleteById(cartItemId);
         return shoppingCartMapper.toDto(getShoppingCartById(id));
     }
