@@ -30,10 +30,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto save(CreateBookRequestDto requestDto) {
-        Set<Category> byIdIn =
+        Set<Category> categories =
                 categoryRepository.findByIdIn(requestDto.getCategoryIds());
         Book book = bookMapper.toEntity(requestDto);
-        book.setCategories(byIdIn);
+        book.setCategories(categories);
         return bookMapper.toDto(bookRepository.save(book));
     }
 
