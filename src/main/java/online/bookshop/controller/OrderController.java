@@ -67,8 +67,8 @@ public class OrderController {
         return orderService.findAllOrderItems(id);
     }
 
-    @Operation(summary = "Find all orderItems by order",
-            description = "Find all orderItems by order")
+    @Operation(summary = "Find orderItem by orderId and itemId",
+            description = "Find orderItem by orderId and itemId")
     @GetMapping("/{orderId}/items/{itemId}")
     public OrderItemResponseDto findOrderItemById(
             @PathVariable Long orderId, @PathVariable Long itemId) {
