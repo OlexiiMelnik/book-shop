@@ -66,3 +66,33 @@ The project follows a 4-tier architecture
 **Security Tier**:
 
 • **security (directory)**: A package responsible for ensuring the security of the application, including authentication and authorization.
+
+# Technologies
+
+1.Spring boot
+
+2. Java 17
+
+3. Spring Security
+
+4. Maven
+
+5. RESTfull api
+
+6. Swagger
+
+7. JSON Web Tokens (JWT)
+
+8. Liquibase
+
+9. MapStruct
+
+10. Database: H2 Database and MySQL database
+
+11. Validation
+
+12. Design patterns
+
+13. N-tier architecture
+
+14. Checkstyle
