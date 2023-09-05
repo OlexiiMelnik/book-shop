@@ -69,7 +69,7 @@ The project follows a 4-tier architecture
 
 # Technologies
 
-1.Spring boot
+1. Spring boot
 
 2. Java 17
 
