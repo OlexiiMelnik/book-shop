@@ -32,10 +32,37 @@ The "Book Shop" project delivers significant business value by offering the foll
 5.**Data-Driven Insights**: The "Book Shop" project collects valuable data on customer preferences, purchasing patterns, and popular book genres. This data can be analyzed to gain insights into customer behavior and provide opportunities for tailoring offerings and marketing strategies for better results.
 
 # PROJECT STRUCTURE🛠
-The project follows a N-tier architecture
+The project follows a 4-tier architecture
 
 **Data Access Tier**:
 
 • **repository (directory)**: Repositories responsible for data access and interaction with the database.
+
 • **specification (directory)**: Specifications used to create complex queries to the database for data filtering.
+
 **liquibase (directory)**: Configuration and files related to Liquibase used for table creation and data population.
+
+**Presentation Layer**:
+
+• **controller (directory)**: Controllers that handle HTTP requests from users and process them.
+
+• **dto (directory)**: Objects for data transfer (DTOs) used for data exchange between the client and server.
+
+• **validation (directory)**: Rules and checks for data validation.
+
+**Business Logic Layer**:
+
+• **model (directory)**: Models representing the core entities of your application (e.g., books, authors, categories, etc.).
+
+• **service (directory)**: Services responsible for executing the business logic of the application and interacting with repositories.
+
+• **mapper (directory)**: Mappers responsible for transforming objects between different representations.
+
+• **exception (directory)**: Classes for handling exceptions and errors that occur at the business logic and data levels.
+
+• **MyGlobalExceptionHandler**: A global exception handler responsible for handling various types of exceptions at the presentation layer.
+• **config (directory)**: Configuration files, such as MapperConfig and SecurityConfig.
+
+**Security Tier**:
+
+• **security (directory)**: A package responsible for ensuring the security of the application, including authentication and authorization.
