@@ -30,3 +30,12 @@ The "Book Shop" project delivers significant business value by offering the foll
 4.**Marketing and Promotion**: The online platform provides opportunities for targeted marketing and promotional campaigns. Businesses can run advertising campaigns, offer discounts, and implement loyalty programs to attract and retain customers, increasing brand visibility and customer loyalty.
 
 5.**Data-Driven Insights**: The "Book Shop" project collects valuable data on customer preferences, purchasing patterns, and popular book genres. This data can be analyzed to gain insights into customer behavior and provide opportunities for tailoring offerings and marketing strategies for better results.
+
+# PROJECT STRUCTURE🛠
+The project follows a N-tier architecture
+
+**Data Access Tier**:
+
+• **repository (directory)**: Repositories responsible for data access and interaction with the database.
+• **specification (directory)**: Specifications used to create complex queries to the database for data filtering.
+**liquibase (directory)**: Configuration and files related to Liquibase used for table creation and data population.
