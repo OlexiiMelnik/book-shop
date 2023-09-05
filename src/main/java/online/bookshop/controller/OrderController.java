@@ -45,7 +45,7 @@ public class OrderController {
     @Operation(summary = "User order history",
             description = "Find all the orders by user")
     @GetMapping
-    public List<OrderResponseDto> findAllByCurrentUser(
+    public List<OrderResponseDto> findAllByUserId(
             Authentication authentication, Pageable pageable) {
         User user = (User) authentication.getPrincipal();
         return orderService.findAllByUserId(user.getId(), pageable);

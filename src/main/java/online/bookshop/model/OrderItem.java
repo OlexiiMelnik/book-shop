@@ -47,12 +47,13 @@ public class OrderItem {
             return false;
         }
         OrderItem orderItem = (OrderItem) o;
-        return Objects.equals(quantity, orderItem.quantity)
+        return Objects.equals(book, orderItem.book)
+                && Objects.equals(quantity, orderItem.quantity)
                 && Objects.equals(price, orderItem.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(quantity, price);
+        return Objects.hash(book, quantity, price);
     }
 }

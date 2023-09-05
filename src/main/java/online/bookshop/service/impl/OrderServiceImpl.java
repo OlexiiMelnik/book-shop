@@ -3,6 +3,7 @@ package online.bookshop.service.impl;
 import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import online.bookshop.mapper.OrderMapper;
 import online.bookshop.model.Order;
 import online.bookshop.model.OrderItem;
 import online.bookshop.model.ShoppingCart;
+import online.bookshop.repository.CartItemRepository;
 import online.bookshop.repository.OrderItemRepository;
 import online.bookshop.repository.OrderRepository;
 import online.bookshop.repository.ShoppingCartRepository;
@@ -28,6 +30,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final CartItemRepository cartItemRepository;
     private final OrderItemRepository orderItemRepository;
     private final ShoppingCartRepository shoppingCartRepository;
     private final OrderMapper orderMapper;
@@ -51,10 +54,10 @@ public class OrderServiceImpl implements OrderService {
         order.setTotal(total);
         orderRepository.save(order);
         orderItemRepository.saveAll(orderItems);
-        OrderResponseDto orderResponseDto
-                = orderMapper.toDto(order);
-        orderResponseDto.setOrderItems(changeToItemResponseDto(orderItems));
-        return orderResponseDto;
+        cartItemRepository.deleteCartItemByShoppingCartId(shoppingCart.getId());
+        shoppingCart.setCartItems(new HashSet<>());
+        shoppingCartRepository.save(shoppingCart);
+        return orderMapper.toDto(order);
     }
 
     @Override
@@ -62,14 +65,8 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderResponseDto> findAllByUserId(Long userId, Pageable pageable) {
         List<Order> allByUserId = orderRepository.findAllByUserId(userId);
         return allByUserId.stream()
-                .map(order -> {
-                    OrderResponseDto orderResponseDto = orderMapper.toDto(order);
-                    Set<OrderItemResponseDto> orderItemResponseDtos
-                            = changeToItemResponseDto(order.getOrderItems());
-                    orderResponseDto.setOrderItems(orderItemResponseDtos);
-                    return orderResponseDto;
-                })
-                .collect(Collectors.toList());
+                .map(orderMapper::toDto)
+                .toList();
     }
 
     @Override
@@ -80,11 +77,7 @@ public class OrderServiceImpl implements OrderService {
                         "Can't find order by userID: " + id));
         order.setStatus(orderUpdateStatusDto.getStatus());
         orderRepository.save(order);
-        Set<OrderItemResponseDto> orderItemResponseDtos =
-                changeToItemResponseDto(order.getOrderItems());
-        OrderResponseDto orderResponseDto = orderMapper.toDto(order);
-        orderResponseDto.setOrderItems(orderItemResponseDtos);
-        return orderResponseDto;
+        return orderMapper.toDto(order);
     }
 
     @Override
@@ -92,7 +85,9 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find order by userID: " + orderId));
-        return changeToItemResponseDto(order.getOrderItems());
+        return order.getOrderItems().stream()
+                .map(orderItemMapper::toDto)
+                .collect(Collectors.toSet());
     }
 
     @Override
@@ -106,13 +101,6 @@ public class OrderServiceImpl implements OrderService {
                 .map(orderItemMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Can't find order by userID: " + itemId));
-    }
-
-    private Set<OrderItemResponseDto> changeToItemResponseDto(
-            Set<OrderItem> orderItems) {
-        return orderItems.stream()
-                .map(orderItemMapper::toDto)
-                .collect(Collectors.toSet());
     }
 
     private BigDecimal calculateTotal(Set<OrderItem> orderItems) {
