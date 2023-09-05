@@ -27,6 +27,9 @@ The "Book Shop" project delivers significant business value by offering the foll
 
 3.**Efficient Inventory Management**: The system assists in efficient book inventory management by tracking book availability and automatically updating stock levels. This helps avoid overselling or understocking, optimizing inventory control and reducing potential revenue loss.
 
+# Project structure
+
+
 4.**Marketing and Promotion**: The online platform provides opportunities for targeted marketing and promotional campaigns. Businesses can run advertising campaigns, offer discounts, and implement loyalty programs to attract and retain customers, increasing brand visibility and customer loyalty.
 
 5.**Data-Driven Insights**: The "Book Shop" project collects valuable data on customer preferences, purchasing patterns, and popular book genres. This data can be analyzed to gain insights into customer behavior and provide opportunities for tailoring offerings and marketing strategies for better results.
