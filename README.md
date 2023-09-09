@@ -91,8 +91,10 @@ The project follows a 4-tier architecture
 
 11. Validation
 
-12. Design patterns
+12. Docker
 
-13. N-tier architecture
+13. Design patterns
 
-14. Checkstyle
+14. N-tier architecture
+
+15. Checkstyle
