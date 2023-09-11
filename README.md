@@ -98,3 +98,7 @@ The project follows a 4-tier architecture
 14. N-tier architecture
 
 15. Checkstyle
+
+16. Search Parameters
+
+17. Pagination
